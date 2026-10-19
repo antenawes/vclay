@@ -1,0 +1,19 @@
+<resources>
+    <color name="ic_bg">#0A0A0A</color>
+    <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:statusBarColor">#0A0A0A</item>
+        <item name="android:navigationBarColor">#0A0A0A</item>
+        <item name="android:colorAccent">#E10A1F</item>
+        <item name="android:alertDialogTheme">@style/Dlg</item>
+    </style>
+    <style name="Dlg" parent="android:Theme.Material.Dialog.Alert">
+        <item name="android:colorAccent">#E10A1F</item>
+    </style>
+    <style name="Trans" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>

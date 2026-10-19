@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    <queries>
+        <intent><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent>
+        <intent><action android:name="android.intent.action.VIEW"/><data android:scheme="https"/></intent>
+    </queries>
+    <application
+        android:label="Virtual Clay"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/AppTheme"
+        android:allowBackup="false"
+        android:supportsRtl="true">
+
+        <activity android:name=".MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".ClayAdmin" android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data android:name="android.app.device_admin" android:resource="@xml/device_admin"/>
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+                <action android:name="android.app.action.PROFILE_PROVISIONING_COMPLETE"/>
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".ProvisionModeActivity" android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN" android:theme="@style/Trans">
+            <intent-filter>
+                <action android:name="android.app.action.GET_PROVISIONING_MODE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ComplianceActivity" android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN" android:theme="@style/Trans">
+            <intent-filter>
+                <action android:name="android.app.action.ADMIN_POLICY_COMPLIANCE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Включается только внутри рабочего профиля (ClayAdmin), принимает команды из основного профиля -->
+        <activity android:name=".ProxyActivity" android:enabled="false" android:exported="true"
+            android:theme="@style/Trans" android:excludeFromRecents="true">
+            <intent-filter>
+                <action android:name="app.virtualclay.CMD"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <service android:name=".ClayDnsService" android:exported="false"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <intent-filter><action android:name="android.net.VpnService"/></intent-filter>
+        </service>
+    </application>
+</manifest>
